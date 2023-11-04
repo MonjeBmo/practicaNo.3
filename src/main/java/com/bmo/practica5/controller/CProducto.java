@@ -1,10 +1,14 @@
 package com.bmo.practica5.controller;
 
 
+import com.bmo.practica5.config.Conn;
 import com.bmo.practica5.config.Methods;
 import com.bmo.practica5.models.MProducto;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -18,7 +22,7 @@ public class CProducto extends Methods {
         try {
             Statement st = cc.createStatement();
             String sql = new StringBuilder()
-                    .append("INSERT INTO producto (nameProducto, descriptionProducto, stock, precioVenta, precioCompra, idProveedor, idCategoria) ")
+                    .append("INSERT INTO producto (nameProducto, descriptionProducto, stock, precioVenta, precioCosto, idProveedor, idCategoria) ")
                     .append("VALUES ('").append(product.getNameProducto())
                     .append("', '").append(product.getDescriptionProducto())
                     .append("', '").append(product.getStock())
@@ -79,7 +83,7 @@ public class CProducto extends Methods {
                         rs.getString("descriptionProducto"),
                         rs.getInt("stock"),
                         rs.getDouble("precioVenta"),
-                        rs.getDouble("precioCompra"),
+                        rs.getDouble("precioCosto"),
                         rs.getInt("idProveedor"),
                         rs.getInt("idCategoria")));
             }
@@ -134,4 +138,56 @@ public class CProducto extends Methods {
             throw new RuntimeException(e);
         }
     }
+
+
+    public DefaultTableModel tableModel(Connection cc) {
+        DefaultTableModel model = new DefaultTableModel();
+        ArrayList<Object> productos = findAll("", cc);
+        model.setColumnIdentifiers(new String[]{"ID", "Nombre", "Descripcion", "Stock", "Precio Venta", "Precio Costo", "Proveedor", "Categoria"});
+
+        for (Object producto : productos) {
+            model.addRow(new Object[]{
+                    ((MProducto) producto).getIdProducto(),
+                    ((MProducto) producto).getNameProducto(),
+                    ((MProducto) producto).getDescriptionProducto(),
+                    ((MProducto) producto).getStock(),
+                    ((MProducto) producto).getPrecioVenta(),
+                    ((MProducto) producto).getPrecioCompra(),
+                    ((MProducto) producto).getIdProveedor(),
+                    ((MProducto) producto).getIdCategoria()
+            });
+        }
+
+
+        return model;
+    }
+
+    //function generate csv file
+    public void generateCSV(Connection cc) {
+        try {
+            String path = "src/main/java/com/bmo/practica5/data/user.csv";
+            File file = new File(path);
+            FileWriter fileWriter = new FileWriter(path, true);
+            ArrayList<Object> productos = findAll("", cc);
+            if (file.length() == 0) {
+                fileWriter.write("Nombre, PrecioCosto, PrecioVenta, Stock, Descripcion, No.Proveedor, No.Categoria\n");
+            }
+
+            for (Object producto : productos) {
+                fileWriter.write(((MProducto) producto).getNameProducto()
+                        + "," + ((MProducto) producto).getPrecioCompra()
+                        + "," + ((MProducto) producto).getPrecioVenta()
+                        + "," + ((MProducto) producto).getStock()
+                        + "," + ((MProducto) producto).getDescriptionProducto()
+                        + "," + ((MProducto) producto).getIdProveedor()
+                        + "," + ((MProducto) producto).getIdCategoria() + "\n");
+            }
+
+            fileWriter.close();
+
+        } catch (Exception e) {
+            System.out.println("An error occurred." + e.getMessage());
+        }
+    }
+
 }
