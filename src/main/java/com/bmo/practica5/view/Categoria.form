@@ -260,9 +260,7 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtFind" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="284" max="-2" attributes="0"/>
-                      <Component id="btnCSV" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="435" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -278,9 +276,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtFind" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnCSV" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" pref="280" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -297,6 +294,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="jTextField1"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtFindKeyPressed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
               <AuxValues>
@@ -324,13 +324,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnCSV">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\Documents\practica5\src\main\java\com\bmo\practica5\view\img\csv.png"/>
-                </Property>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

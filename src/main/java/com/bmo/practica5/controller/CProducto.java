@@ -55,7 +55,7 @@ public class CProducto extends Methods {
                         rs.getString("descriptionProducto"),
                         rs.getInt("stock"),
                         rs.getDouble("precioVenta"),
-                        rs.getDouble("precioCompra"),
+                        rs.getDouble("precioCosto"),
                         rs.getInt("idProveedor"),
                         rs.getInt("idCategoria"));
             } else {
@@ -74,7 +74,7 @@ public class CProducto extends Methods {
         try {
             Statement st = cc.createStatement();
             String sql = new StringBuilder()
-                    .append("SELECT * FROM producto").toString();
+                    .append("SELECT * FROM producto WHERE CAST(idProducto AS CHAR) LIKE '%" + id + "%' OR nameProducto LIKE '%" + id + "%'").toString();
             var rs = st.executeQuery(sql);
             while (rs.next()) {
                 productos.add(new MProducto(
@@ -140,13 +140,14 @@ public class CProducto extends Methods {
     }
 
 
-    public DefaultTableModel tableModel(Connection cc) {
+    public DefaultTableModel tableModel(String id,Connection cc) {
         DefaultTableModel model = new DefaultTableModel();
-        ArrayList<Object> productos = findAll("", cc);
-        model.setColumnIdentifiers(new String[]{"ID", "Nombre", "Descripcion", "Stock", "Precio Venta", "Precio Costo", "Proveedor", "Categoria"});
+        ArrayList<Object> productos = findAll(id, cc);
+        model.setColumnIdentifiers(new String[]{"No.","ID", "Nombre", "Descripcion", "Stock", "Precio Venta", "Precio Costo", "Proveedor", "Categoria"});
 
         for (Object producto : productos) {
             model.addRow(new Object[]{
+                    productos.indexOf(producto) + 1,
                     ((MProducto) producto).getIdProducto(),
                     ((MProducto) producto).getNameProducto(),
                     ((MProducto) producto).getDescriptionProducto(),
@@ -165,7 +166,7 @@ public class CProducto extends Methods {
     //function generate csv file
     public void generateCSV(Connection cc) {
         try {
-            String path = "src/main/java/com/bmo/practica5/data/user.csv";
+            String path = "src/main/java/com/bmo/practica5/data/data.csv";
             File file = new File(path);
             FileWriter fileWriter = new FileWriter(path, true);
             ArrayList<Object> productos = findAll("", cc);

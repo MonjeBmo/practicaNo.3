@@ -19,7 +19,6 @@ public class Categoria extends javax.swing.JInternalFrame {
     /**
      * Creates new form Proveedor
      */
-
     Connection ccCa;
     boolean edit = false;
     String ID = "";
@@ -82,7 +81,6 @@ public class Categoria extends javax.swing.JInternalFrame {
         txtName.setText(categoria.getName());
     }
 
-
     void delete() {
         var id = table.getValueAt(getRowSelected(), 1).toString();
 
@@ -131,7 +129,6 @@ public class Categoria extends javax.swing.JInternalFrame {
         txtFind = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        btnCSV = new javax.swing.JButton();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -253,6 +250,11 @@ public class Categoria extends javax.swing.JInternalFrame {
         jLabel1.setText("ID:");
 
         txtFind.setText("jTextField1");
+        txtFind.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFindKeyPressed(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -270,8 +272,6 @@ public class Categoria extends javax.swing.JInternalFrame {
         table.setShowHorizontalLines(true);
         jScrollPane2.setViewportView(table);
 
-        btnCSV.setIcon(new javax.swing.ImageIcon("D:\\Documents\\practica5\\src\\main\\java\\com\\bmo\\practica5\\view\\img\\csv.png")); // NOI18N
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -281,9 +281,7 @@ public class Categoria extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(284, 284, 284)
-                .addComponent(btnCSV)
-                .addGap(91, 91, 91))
+                .addGap(435, 435, 435))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2)
@@ -295,9 +293,8 @@ public class Categoria extends javax.swing.JInternalFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(btnCSV))
-                .addGap(27, 27, 27)
+                    .addComponent(jLabel1))
+                .addGap(43, 43, 43)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -338,9 +335,14 @@ public class Categoria extends javax.swing.JInternalFrame {
         delete();
     }//GEN-LAST:event_deleteBtnActionPerformed
 
+    private void txtFindKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindKeyPressed
+//           find
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFindKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCSV;
     private javax.swing.JButton btnCls;
     private javax.swing.JButton btnSave;
     private javax.swing.JMenuItem deleteBtn;

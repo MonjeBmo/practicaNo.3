@@ -70,7 +70,7 @@ public class Producto extends javax.swing.JInternalFrame {
         spnStock.setValue(0);
         cbCategory();
         cbProve();
-        table.setModel(new CProducto().tableModel(ccPro));
+        table.setModel(new CProducto().tableModel("", ccPro));
     }
 
     boolean validForm() {
@@ -393,6 +393,11 @@ public class Producto extends javax.swing.JInternalFrame {
         jLabel1.setText("Buscar");
 
         txtFind.setText("jTextField1");
+        txtFind.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFindKeyPressed(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{
@@ -488,6 +493,11 @@ public class Producto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         new CProducto().generateCSV(ccPro);
     }//GEN-LAST:event_btnCSVActionPerformed
+
+    private void txtFindKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFindKeyPressed
+        // TODO add your handling code here:
+        table.setModel(new CProducto().tableModel(txtFind.getText(), ccPro));
+    }//GEN-LAST:event_txtFindKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
